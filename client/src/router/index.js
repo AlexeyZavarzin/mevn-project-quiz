@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Posts from '../components/pages/PostsPage'
+import Posts from '../components/Posts'
 
 Vue.use(Router)
 
