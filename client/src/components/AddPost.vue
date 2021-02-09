@@ -3,10 +3,14 @@
     <h1>Add Post</h1>
     <div class="form">
       <div>
-        <input type="text" name="title" placeholder="TITLE" v-model="title">
+        <label>
+          <input type="text" name="title" placeholder="TITLE" v-model="title">
+        </label>
       </div>
       <div>
-        <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
+        <label>
+          <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
+        </label>
       </div>
       <div>
         <button class="app_post_btn" @click="addPost">Add</button>
@@ -16,23 +20,28 @@
 </template>
 
 <script>
-import PostsService from "../services/PostsService";
+import PostsService from '../services/PostsService'
 
 export default {
-  name: "NewPost",
-  data() {
+  name: 'AddPost',
+  data () {
     return {
       title: '',
       description: ''
     }
   },
   methods: {
-    async addPost() {
+    async addPost () {
       await PostsService.addPost({
         title: this.title,
         description: this.description
-      });
-      await this.$router.push({name: 'Posts'});
+      })
+      this.$swal(
+        'Great!',
+        `Your post has been added!`,
+        'success'
+      )
+      await this.$router.push({name: 'Posts'})
     }
   }
 }

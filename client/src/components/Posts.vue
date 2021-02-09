@@ -3,7 +3,7 @@
     <h1>Posts</h1>
     <div v-if="posts.length > 0" class="table-wrap">
       <div>
-        <router-link v-bind:to="{ name: 'NewPost' }" class="">Add Post</router-link>
+        <router-link v-bind:to="{ name: 'AddPost' }" class="">Add Post</router-link>
       </div>
       <table>
         <tr>
@@ -15,23 +15,24 @@
           <td>{{ post.title }}</td>
           <td>{{ post.description }}</td>
           <td align="center">
-            <router-link v-bind:to="{ name: 'EditPost', params: { id: post._id } }">Edit</router-link> |
-            <a href="#">Delete</a>
+            <router-link v-bind:to="{ name: 'EditPost', params: { id: post._id, title: post.title, description: post.description } }">Edit</router-link>
+            <a href="#" @click="deletePost(post._id)">Delete</a>
           </td>
         </tr>
       </table>
     </div>
     <div v-else>
       There are no posts.. Lets add one now <br /><br />
-      <router-link v-bind:to="{ name: 'NewPost' }" class="add_post_link">Add Post</router-link>
+      <router-link v-bind:to="{ name: 'AddPost' }" class="add_post_link">Add Post</router-link>
     </div>
   </div>
 </template>
 
 <script>
 import PostsService from '../services/PostsService'
+
 export default {
-  name: 'posts',
+  name: 'Posts',
   data () {
     return {
       posts: []
@@ -41,9 +42,25 @@ export default {
     this.getPosts()
   },
   methods: {
-    async getPosts () {
+    async getPosts() {
       const response = await PostsService.fetchPosts()
       this.posts = response.data.posts
+    },
+    async deletePost(id) {
+      const $this = this
+      $this.$swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function () {
+        PostsService.deletePost(id)
+        $this.$router.go({
+          path: '/'
+        })
+      })
     }
   }
 }
