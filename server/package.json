@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon --ext js --watch src"
+    "run": "nodemon --ext js --watch src"
   },
   "author": "",
   "license": "ISC"
