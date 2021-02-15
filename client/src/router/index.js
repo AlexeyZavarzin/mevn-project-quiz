@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Posts from '../components/Posts'
 import AddPost from '../components/AddPost'
 import EditPost from "../components/EditPost"
+import Questions from "../components/Questions";
 
 Vue.use(Router)
 
@@ -11,7 +12,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/posts',
       name: 'Posts',
       component: Posts
     },
@@ -24,6 +25,11 @@ export default new Router({
       path: '/posts/:id/edit',
       name: 'EditPost',
       component: EditPost
+    },
+    {
+      path: '/questions',
+      name: 'Questions',
+      component: Questions
     }
   ]
 })

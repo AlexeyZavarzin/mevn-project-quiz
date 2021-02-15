@@ -35,7 +35,7 @@ import PostsService from '../services/PostsService'
 export default {
   name: 'Posts',
 
-  data () {
+  data() {
     return {
       posts: []
     }
@@ -53,25 +53,26 @@ export default {
     },
 
     async deletePost(id) {
-      const $this = this
-      $this.$swal({
+      this.$swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
-      }).then(function () {
-        PostsService.deletePost(id)
-        $this.$router.go({
-          path: '/'
-        })
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          PostsService.deletePost(id)
+          this.$swal.fire('Deleted!', '', 'success')
+        }
+        this.$router.push({name: 'Posts'})
       })
     }
 
   }
 }
 </script>
+
 <style type="text/css">
 .table-wrap {
   width: 60%;

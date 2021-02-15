@@ -3,7 +3,9 @@ var Schema = mongoose.Schema
 
 var QuestionSchema = new Schema({
         text: String,
-        responses: Array},
+        topic: String,
+        responses: Array,
+    },
     {
         versionKey: false
     })

@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 
 const Post = require("../models/post")
+const Question = require("../models/question")
 
 
 const app = express()
@@ -14,6 +15,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 mongoose.connect('mongodb://localhost:27017/posts').then(() => console.log("Successful database connection"))
+// mongoose.connect('mongodb://localhost:27017/questionsDB').then(() => console.log("Successful database connection"))
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "connection error"))
@@ -86,6 +88,17 @@ app.get('/posts/:id', (req, res) => {
         }
         res.send(post)
     })
+})
+
+app.get('/questions', (req, res) => {
+    Question.find({}, 'text topic responses', function (error, questions) {
+        if (error) {
+            console.log(error)
+        }
+        res.send({
+            questions: questions
+        })
+    }).sort({_id:-1})
 })
 
 app.listen(process.env.PORT || 8081)
