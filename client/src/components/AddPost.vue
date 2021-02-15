@@ -24,13 +24,16 @@ import PostsService from '../services/PostsService'
 
 export default {
   name: 'AddPost',
+
   data () {
     return {
       title: '',
       description: ''
     }
   },
+
   methods: {
+
     async addPost () {
       await PostsService.addPost({
         title: this.title,
@@ -43,6 +46,7 @@ export default {
       )
       await this.$router.push({name: 'Posts'})
     }
+
   }
 }
 </script>

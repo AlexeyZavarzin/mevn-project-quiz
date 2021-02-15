@@ -24,16 +24,20 @@ import PostsService from "../services/PostsService"
 
 export default {
   name: "EditPost",
+
   data() {
     return {
       title: this.$route.params.title,
       description: this.$route.params.description
     }
   },
+
   mounted() {
     this.getPost()
   },
+
   methods: {
+
     async getPost() {
       const response = await PostsService.getPost({
         id: this.$route.params.id
@@ -41,6 +45,7 @@ export default {
       this.title = response.data.title
       this.description = response.data.description
     },
+
     async updatePost() {
       await PostsService.updatePost({
         id: this.$route.params.id,
@@ -54,6 +59,7 @@ export default {
       )
       await this.$router.push({name: 'Posts'})
     }
+
   }
 }
 </script>
